@@ -231,6 +231,14 @@ img { max-width: 100%; display: block; }
   margin-top: -16px;
 }
 
+.section-subtext {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-top: -20px;
+  margin-bottom: 28px;
+  line-height: 1.65;
+}
+
 /* ---- Research Interest Cards ---- */
 
 .interest-grid {

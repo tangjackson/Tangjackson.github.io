@@ -43,7 +43,7 @@
               <a href="https://www.umn.edu/" target="_blank">University of Minnesota, Twin Cities</a>
             </p>
             <p class="hero-bio">
-              I received a B.S. in Mathematics (Poling Class) from Nankai University (2021) and an M.Phil. in IoT from the Hong Kong University of Science and Technology (2023). I am currently a PhD student at UMN. My research interests span machine learning, optimization, and large-scale systems — including LLMs, 5G/NextG wireless, applied cryptography, and federated/distributed learning.
+              I received a B.S. in Mathematics (Poling Class) from Nankai University (2021) and an M.Phil. in IoT from HKUST (2023). I am currently a PhD student at UMN. My research focuses on <strong>LLM systems and infrastructure</strong> — building the software and hardware stack that makes large language models fast, memory-efficient, and practically deployable at scale.
             </p>
             <div class="hero-links">
               <a href="mailto:jathon.tang@gmail.com" class="link-badge">
@@ -71,27 +71,28 @@
     <!-- Research Interests -->
     <section class="section" id="research">
       <div class="container">
-        <h2 class="section-title">Research Interests</h2>
+        <h2 class="section-title">Research — LLM Systems &amp; Infrastructure</h2>
+        <p class="section-subtext">I study how to make large language models <em>actually work</em> at scale — covering the full stack from kernel-level GPU kernels to distributed serving clusters.</p>
         <div class="interest-grid">
           <div class="interest-card">
-            <div class="interest-icon">🤖</div>
-            <h3>Large Language Models</h3>
-            <p>Training, alignment, efficiency, and applications of LLMs at scale.</p>
+            <div class="interest-icon">⚡</div>
+            <h3>Inference Optimization</h3>
+            <p>Speculative decoding, continuous batching, KV cache management (PagedAttention), and kernel fusion for low-latency serving.</p>
           </div>
           <div class="interest-card">
-            <div class="interest-icon">📡</div>
-            <h3>ML for Wireless</h3>
-            <p>Applying deep learning and optimization to 5G/NextG spectrum and resource management.</p>
+            <div class="interest-icon">🗜️</div>
+            <h3>Quantization &amp; Compression</h3>
+            <p>Post-training quantization (GPTQ, AWQ), weight/activation sparsity, and mixed-precision training to shrink model footprint.</p>
           </div>
           <div class="interest-card">
-            <div class="interest-icon">🔒</div>
-            <h3>Applied Cryptography</h3>
-            <p>Privacy-preserving computation, secure distributed protocols, and federated learning security.</p>
+            <div class="interest-icon">🌐</div>
+            <h3>Distributed Training</h3>
+            <p>Tensor, pipeline, and data parallelism; ZeRO memory optimization; gradient checkpointing across GPU clusters.</p>
           </div>
           <div class="interest-card">
-            <div class="interest-icon">⚙️</div>
-            <h3>Federated Learning</h3>
-            <p>Distributed optimization, communication efficiency, and robustness in federated settings.</p>
+            <div class="interest-icon">🏗️</div>
+            <h3>LLM Serving Systems</h3>
+            <p>Disaggregated prefill/decode, request scheduling, multi-model serving, and SLO-aware resource allocation.</p>
           </div>
         </div>
       </div>
@@ -102,9 +103,9 @@
       <div class="container">
         <h2 class="section-title">Current Work</h2>
         <ul class="work-list">
-          <li>Large Language Models — reasoning, efficiency, and alignment</li>
-          <li>Spectrum sensing and resource allocation via deep learning</li>
-          <li>Federated learning under heterogeneous and adversarial settings</li>
+          <li>Efficient LLM inference — reducing TTFT and TPOT under memory constraints</li>
+          <li>KV cache compression and offloading strategies for long-context models</li>
+          <li>Disaggregated serving architectures for heterogeneous GPU clusters</li>
         </ul>
       </div>
     </section>
