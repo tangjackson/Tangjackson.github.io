@@ -22,7 +22,7 @@
         <a href="#publications">Publications</a>
         <a href="#education">Education</a>
         <a href="blog/index.html">Blog</a>
-        <a href="cv/cv.pdf" target="_blank" class="btn-cv">CV</a>
+        <a href="cv/jiaxiang-resume.pdf" target="_blank" class="btn-cv">CV</a>
       </div>
     </div>
   </nav>
@@ -41,9 +41,10 @@
             <p class="hero-title">PhD Student · Computer Science</p>
             <p class="hero-affil">
               <a href="https://www.umn.edu/" target="_blank">University of Minnesota, Twin Cities</a>
+              · Advisors: <a href="https://www-users.cse.umn.edu/~zhzhang/" target="_blank">Zhi-Li Zhang</a> &amp; <a href="https://ali-anwar.github.io/" target="_blank">Ali Anwar</a>
             </p>
             <p class="hero-bio">
-              I received a B.S. in Mathematics (Poling Class) from Nankai University (2021) and an M.Phil. in IoT from HKUST (2023). I am currently a PhD student at UMN. My research focuses on <strong>LLM systems and infrastructure</strong> — building the software and hardware stack that makes large language models fast, memory-efficient, and practically deployable at scale.
+              I am a third-year Ph.D. student in Computer Science at UMN. My research focuses on <strong>LLM systems and infrastructure</strong> — distributed training and inference, post-training and alignment systems, and high-performance AI communication. I build real-world testbeds, profile computation and communication bottlenecks, and co-design runtime, networking, and kernel-level optimizations for efficient and robust AI systems.
             </p>
             <div class="hero-links">
               <a href="mailto:jathon.tang@gmail.com" class="link-badge">
@@ -58,7 +59,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                 GitHub
               </a>
-              <a href="cv/cv.pdf" target="_blank" class="link-badge">
+              <a href="cv/jiaxiang-resume.pdf" target="_blank" class="link-badge">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
                 CV
               </a>
@@ -72,27 +73,27 @@
     <section class="section" id="research">
       <div class="container">
         <h2 class="section-title">Research — LLM Systems &amp; Infrastructure</h2>
-        <p class="section-subtext">I study how to make large language models <em>actually work</em> at scale — covering the full stack from kernel-level GPU kernels to distributed serving clusters.</p>
+        <p class="section-subtext">I study the full system stack that makes LLMs fast, scalable, and deployable — from GPU kernels to distributed networking.</p>
         <div class="interest-grid">
           <div class="interest-card">
             <div class="interest-icon">⚡</div>
-            <h3>Inference Optimization</h3>
-            <p>Speculative decoding, continuous batching, KV cache management (PagedAttention), and kernel fusion for low-latency serving.</p>
+            <h3>LLM Inference &amp; Serving</h3>
+            <p>Co-serving RL training and LLM inference, SLO-aware scheduling, GPU sharing, and runtime optimization (vLLM, SGLang).</p>
           </div>
           <div class="interest-card">
-            <div class="interest-icon">🗜️</div>
-            <h3>Quantization &amp; Compression</h3>
-            <p>Post-training quantization (GPTQ, AWQ), weight/activation sparsity, and mixed-precision training to shrink model footprint.</p>
+            <div class="interest-icon">🎯</div>
+            <h3>Post-Training &amp; Alignment</h3>
+            <p>Scalable RLHF and multi-value alignment systems; designing robust post-training pipelines that integrate multiple alignment objectives.</p>
           </div>
           <div class="interest-card">
             <div class="interest-icon">🌐</div>
-            <h3>Distributed Training</h3>
-            <p>Tensor, pipeline, and data parallelism; ZeRO memory optimization; gradient checkpointing across GPU clusters.</p>
+            <h3>AI Networking &amp; Collective Comms</h3>
+            <p>RDMA/RoCE testbeds, congestion and tail-latency measurement, NCCL/Gloo profiling, and NS-3 simulations for distributed LLM workloads.</p>
           </div>
           <div class="interest-card">
-            <div class="interest-icon">🏗️</div>
-            <h3>LLM Serving Systems</h3>
-            <p>Disaggregated prefill/decode, request scheduling, multi-model serving, and SLO-aware resource allocation.</p>
+            <div class="interest-icon">🔧</div>
+            <h3>Kernel &amp; Performance Engineering</h3>
+            <p>CUDA kernel optimization, Nsight profiling, and workload-faithful microbenchmarks to attribute latency to compute vs. communication.</p>
           </div>
         </div>
       </div>
@@ -103,9 +104,9 @@
       <div class="container">
         <h2 class="section-title">Current Work</h2>
         <ul class="work-list">
-          <li>Efficient LLM inference — reducing TTFT and TPOT under memory constraints</li>
-          <li>KV cache compression and offloading strategies for long-context models</li>
-          <li>Disaggregated serving architectures for heterogeneous GPU clusters</li>
+          <li><strong>GPU sharing &amp; co-serving:</strong> Decentralized, communication-aware co-serving of RL training and LLM inference; studying bursty interference and SLO violations across compute and communication layers.</li>
+          <li><strong>Multi-value alignment (MASS):</strong> Scalable post-training system for stable integration of multiple alignment objectives with improved robustness across heterogeneous value mixtures.</li>
+          <li><strong>RDMA for AI data centers:</strong> Building real-world RDMA/RoCE testbeds to characterize training traffic, congestion, and tail latency; proposing system-level improvements grounded in empirical measurements.</li>
         </ul>
       </div>
     </section>
@@ -114,13 +115,49 @@
     <section class="section" id="publications">
       <div class="container">
         <h2 class="section-title">Publications</h2>
-        <p class="section-note">* indicates corresponding author. <a href="https://scholar.google.com/citations?hl=zh-CN&user=TCQa5McAAAAJ" target="_blank">Full list on Google Scholar →</a></p>
+        <p class="section-note"><a href="https://scholar.google.com/citations?hl=zh-CN&user=TCQa5McAAAAJ" target="_blank">Google Scholar →</a></p>
 
+        <h3 class="subsection-title" style="margin-top:0">Conference &amp; Journal</h3>
         <div class="pub-list">
+
           <div class="pub-item">
-            <div class="pub-venue">Conference / Journal</div>
-            <div class="pub-title">Publications will be listed here — please update with your resume.</div>
+            <div class="pub-venue">IEEE INFOCOM 2026</div>
+            <div class="pub-title">AHE: Adaptive Homomorphic Encryption for Federated Learning</div>
+            <div class="pub-authors">Jiaxiang Tang et al.</div>
           </div>
+
+          <div class="pub-item">
+            <div class="pub-venue">IEEE TIFS 2025 &nbsp;·&nbsp; IEEE ISIT 2023</div>
+            <div class="pub-title">SecEA: Secure Embedding Aggregation for Federated Representation Learning</div>
+            <div class="pub-authors">Jiaxiang Tang et al.</div>
+          </div>
+
+          <div class="pub-item">
+            <div class="pub-venue">IEEE TPS 2025</div>
+            <div class="pub-title">HERL: Tiered Federated Learning with Adaptive Homomorphic Encryption using Reinforcement Learning</div>
+            <div class="pub-authors">Jiaxiang Tang et al.</div>
+          </div>
+
+        </div>
+
+        <h3 class="subsection-title">Under Review / Manuscripts</h3>
+        <div class="pub-list">
+
+          <div class="pub-item pub-item-draft">
+            <div class="pub-venue">Under Review</div>
+            <div class="pub-title">MASS: Multi-Value Alignment for LLM at Scale</div>
+          </div>
+
+          <div class="pub-item pub-item-draft">
+            <div class="pub-venue">Under Review</div>
+            <div class="pub-title">multi-Queue RDMA in AI Data Centers for Scalable Training Acceleration</div>
+          </div>
+
+          <div class="pub-item pub-item-draft">
+            <div class="pub-venue">Under Review</div>
+            <div class="pub-title">Multi-Path Video Streaming Optimization in 5G Networks</div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -144,30 +181,97 @@
               <div class="timeline-period">2023 – Present</div>
               <div class="timeline-degree">Ph.D. in Computer Science</div>
               <div class="timeline-school"><a href="https://www.umn.edu/" target="_blank">University of Minnesota, Twin Cities</a></div>
+              <div class="timeline-detail">Advisors: Zhi-Li Zhang &amp; Ali Anwar</div>
             </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="timeline-body">
               <div class="timeline-period">2021 – 2023</div>
-              <div class="timeline-degree">M.Phil. in Internet of Things</div>
-              <div class="timeline-school"><a href="https://www.ust.hk/" target="_blank">The Hong Kong University of Science and Technology</a></div>
+              <div class="timeline-degree">M.Phil. in Internet of Things &nbsp;<span class="gpa">GPA 3.52/4</span></div>
+              <div class="timeline-school"><a href="https://www.ust.hk/" target="_blank">Hong Kong University of Science and Technology</a></div>
+              <div class="timeline-detail">Thesis: Secure Embedding Aggregation for Federated Representation Learning · Advisor: Songze Li</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-body">
+              <div class="timeline-period">2019 (Exchange)</div>
+              <div class="timeline-degree">Exchange in Mathematics &nbsp;<span class="gpa">GPA 3.85/4</span></div>
+              <div class="timeline-school"><a href="https://www.berkeley.edu/" target="_blank">University of California, Berkeley</a></div>
+              <div class="timeline-detail">Complex Analysis, Probability, Statistics, PDE</div>
             </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="timeline-body">
               <div class="timeline-period">2017 – 2021</div>
-              <div class="timeline-degree">B.S. in Mathematics (Poling Class)</div>
+              <div class="timeline-degree">B.S. in Mathematics (Boling Class) &nbsp;<span class="gpa">GPA 3.6/4</span></div>
               <div class="timeline-school"><a href="http://www.nku.edu.cn/" target="_blank">Nankai University</a></div>
+              <div class="timeline-detail">Boling Scholarship, Innovation Scholarship, Nankai International Scholarship</div>
             </div>
           </div>
         </div>
 
-        <h3 class="subsection-title">Awards</h3>
+        <h3 class="subsection-title">Honors &amp; Awards</h3>
         <ul class="award-list">
-          <li>ISIT Student Travel Award</li>
+          <li>IEEE INFOCOM NSF Travel Grant (2026)</li>
+          <li>IEEE ISIT Student Travel Grant (2023)</li>
+          <li>Nankai International Scholarship (2019)</li>
         </ul>
+
+        <h3 class="subsection-title">Teaching</h3>
+        <div class="timeline" style="margin-top:8px">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-body">
+              <div class="timeline-period">2024 – 2025</div>
+              <div class="timeline-degree">Teaching Assistant · University of Minnesota</div>
+              <div class="timeline-detail">CSCI 1113: Introduction to C/C++ &nbsp;·&nbsp; CSCI 5707: Introduction to Databases</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-body">
+              <div class="timeline-period">Fall 2022</div>
+              <div class="timeline-degree">Teaching Assistant · HKUST</div>
+              <div class="timeline-detail">ECE: Convex Optimization</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">Skills &amp; Tools</h2>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="skill-label">LLM Systems</div>
+            <div class="skill-tags"><span>vLLM</span><span>SGLang</span><span>Ray</span><span>LangChain</span></div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Distributed / Comms</div>
+            <div class="skill-tags"><span>PyTorch Distributed</span><span>NCCL</span><span>Gloo</span><span>MPI</span></div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Networking</div>
+            <div class="skill-tags"><span>RDMA/RoCE</span><span>NS-3</span><span>tcpdump</span><span>Wireshark</span></div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Kernel / Perf</div>
+            <div class="skill-tags"><span>CUDA</span><span>Nsight Systems</span><span>torch.profiler</span></div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Languages</div>
+            <div class="skill-tags"><span>Python</span><span>C/C++</span><span>CUDA</span></div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Systems</div>
+            <div class="skill-tags"><span>Linux</span><span>Docker</span></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -175,7 +279,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>© 2024 Jiaxiang Tang · Built with ❤️ · <a href="https://github.com/Tangjacson/Tangjacson.github.io" target="_blank">Source</a></p>
+      <p>© 2025 Jiaxiang Tang · <a href="https://github.com/Tangjacson/Tangjacson.github.io" target="_blank">Source</a></p>
     </div>
   </footer>
 

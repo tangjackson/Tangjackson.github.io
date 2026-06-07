@@ -433,6 +433,61 @@ img { max-width: 100%; display: block; }
   font-size: 0.85rem;
 }
 
+/* ---- Publication draft variant ---- */
+.pub-item-draft {
+  opacity: 0.65;
+  border-left-color: var(--color-text-muted);
+}
+
+/* ---- Timeline extras ---- */
+.timeline-detail {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+.gpa {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ---- Skills grid ---- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.skill-group {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+.skill-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.skill-tags span {
+  font-size: 0.8rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 3px 9px;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+}
+
 /* ---- Footer ---- */
 
 .footer {
