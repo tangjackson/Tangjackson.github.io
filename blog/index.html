@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog · Jiaxiang Tang</title>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Blog-specific styles */
+    .blog-hero {
+      padding: calc(var(--nav-height) + 48px) 0 48px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .blog-hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .blog-hero p {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Filter tags */
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .filter-tag {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      background: var(--color-bg);
+    }
+    .filter-tag.active,
+    .filter-tag:hover {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+    }
+
+    /* Card grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .post-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .post-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: transparent;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: #eff6ff;
+      color: var(--color-primary);
+    }
+    .card-date {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .card-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+
+    .card-excerpt {
+      font-size: 0.87rem;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-read-more {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .empty-state {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 64px 24px;
+      color: var(--color-text-muted);
+    }
+    .empty-state h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--color-text); }
+    .empty-state p { font-size: 0.9rem; }
+
+    @media (max-width: 500px) {
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a class="nav-brand" href="../index.html">Jiaxiang Tang</a>
+      <div class="nav-links">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#education">Education</a>
+        <a href="index.html" style="color: var(--color-primary);">Blog</a>
+        <a href="../cv/cv.pdf" target="_blank" class="btn-cv">CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="blog-hero">
+      <div class="container">
+        <h1>Learning Notes</h1>
+        <p>Notes on machine learning, math, systems, and research. Written to learn by teaching.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+
+        <!-- Filter tags -->
+        <div class="filter-row" id="filterRow">
+          <button class="filter-tag active" data-tag="all">All</button>
+          <button class="filter-tag" data-tag="llm">LLM</button>
+          <button class="filter-tag" data-tag="ml">Machine Learning</button>
+          <button class="filter-tag" data-tag="math">Math</button>
+          <button class="filter-tag" data-tag="systems">Systems</button>
+          <button class="filter-tag" data-tag="paper-notes">Paper Notes</button>
+        </div>
+
+        <!-- Card grid -->
+        <div class="card-grid" id="cardGrid">
+
+          <a class="post-card" href="posts/attention-is-all-you-need.html" data-tags="llm paper-notes">
+            <div class="card-meta">
+              <span class="card-category">Paper Notes</span>
+              <span class="card-date">2024-01-15</span>
+            </div>
+            <div class="card-title">Attention Is All You Need — Notes & Intuitions</div>
+            <div class="card-excerpt">Walking through the Transformer architecture from scratch: why attention works, what multi-head attention actually computes, and the positional encoding trick.</div>
+            <div class="card-read-more">Read →</div>
+          </a>
+
+          <!-- More posts will appear here as you add them -->
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2024 Jiaxiang Tang · <a href="../index.html">Home</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple tag filter
+    const filterRow = document.getElementById('filterRow');
+    const cards = document.querySelectorAll('.post-card');
+
+    filterRow.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-tag');
+      if (!btn) return;
+
+      filterRow.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const tag = btn.dataset.tag;
+      cards.forEach(card => {
+        const tags = card.dataset.tags || '';
+        card.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>

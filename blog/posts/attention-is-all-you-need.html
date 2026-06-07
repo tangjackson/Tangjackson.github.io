@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attention Is All You Need — Notes | Jiaxiang Tang</title>
+  <link rel="shortcut icon" href="../../favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- KaTeX for math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <style>
+    .post-wrapper {
+      padding: calc(var(--nav-height) + 56px) 0 80px;
+    }
+
+    .post-header {
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--color-primary); }
+
+    .post-category {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      background: #eff6ff;
+      padding: 3px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .post-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: var(--color-text);
+    }
+
+    .post-meta {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Post body prose */
+    .post-body {
+      max-width: 700px;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--color-text);
+    }
+
+    .post-body h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 48px;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      border-bottom: 2px solid var(--color-border);
+      padding-bottom: 8px;
+    }
+
+    .post-body h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-top: 32px;
+      margin-bottom: 8px;
+    }
+
+    .post-body p {
+      margin-bottom: 20px;
+    }
+
+    .post-body ul, .post-body ol {
+      padding-left: 24px;
+      margin-bottom: 20px;
+    }
+
+    .post-body li { margin-bottom: 6px; }
+
+    .post-body code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .post-body pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 20px 24px;
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      margin-bottom: 24px;
+      font-size: 0.88rem;
+      font-family: var(--font-mono);
+      line-height: 1.6;
+    }
+
+    .post-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    .post-body blockquote {
+      border-left: 4px solid var(--color-primary);
+      padding: 8px 20px;
+      background: #eff6ff;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 24px 0;
+      color: var(--color-text);
+      font-style: italic;
+    }
+
+    .math-block {
+      overflow-x: auto;
+      margin: 24px 0;
+      padding: 16px 20px;
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+
+    .post-footer {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .post-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a class="nav-brand" href="../../index.html">Jiaxiang Tang</a>
+      <div class="nav-links">
+        <a href="../../index.html#about">About</a>
+        <a href="../../index.html#research">Research</a>
+        <a href="../../index.html#publications">Publications</a>
+        <a href="../../index.html#education">Education</a>
+        <a href="../index.html" style="color: var(--color-primary);">Blog</a>
+        <a href="../../cv/cv.pdf" target="_blank" class="btn-cv">CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="post-wrapper">
+    <div class="container">
+
+      <a href="../index.html" class="back-link">← Back to Blog</a>
+
+      <div class="post-header">
+        <span class="post-category">Paper Notes</span>
+        <h1 class="post-title">Attention Is All You Need — Notes &amp; Intuitions</h1>
+        <div class="post-meta">January 15, 2024 · 8 min read</div>
+      </div>
+
+      <div class="post-body">
+
+        <p>
+          The Transformer (<a href="https://arxiv.org/abs/1706.03762" target="_blank">Vaswani et al., 2017</a>) is now the backbone of almost everything in NLP and beyond. These are my personal notes after reading the paper carefully — focused on building up intuition rather than just restating formulas.
+        </p>
+
+        <h2>Why Attention?</h2>
+
+        <p>
+          Before Transformers, sequence models were mostly RNN-based (LSTM, GRU). The core problem: RNNs process tokens sequentially, so the path between position <em>i</em> and position <em>j</em> has length O(|i−j|). Long-range dependencies are hard to learn because the gradient has to flow through many steps.
+        </p>
+
+        <p>
+          Self-attention fixes this: every position attends to every other position in O(1) steps. The trade-off is O(n²) computation in sequence length, which is fine for typical sentence lengths but painful for very long contexts.
+        </p>
+
+        <blockquote>
+          "Attention is a soft lookup in a database of key-value pairs, where the query is the current token's representation."
+        </blockquote>
+
+        <h2>Scaled Dot-Product Attention</h2>
+
+        <p>Given queries Q, keys K, and values V (all matrices):</p>
+
+        <div class="math-block">
+          Attention(Q, K, V) = softmax( QKᵀ / √dₖ ) · V
+        </div>
+
+        <p>
+          The <strong>scale factor √dₖ</strong> is the key trick. When dₖ is large, dot products grow in magnitude, pushing softmax into regions with tiny gradients. Dividing by √dₖ keeps the variance roughly constant.
+        </p>
+
+        <h3>Intuition for Q, K, V</h3>
+        <ul>
+          <li><strong>Query (Q):</strong> "What am I looking for?"</li>
+          <li><strong>Key (K):</strong> "What do I offer to be found?"</li>
+          <li><strong>Value (V):</strong> "What do I actually contribute if selected?"</li>
+        </ul>
+
+        <p>
+          This is literally a soft retrieval system. The attention weights tell each token how much to "borrow" from every other token's value.
+        </p>
+
+        <h2>Multi-Head Attention</h2>
+
+        <p>
+          Rather than one attention function with dmodel-dimensional Q, K, V, multi-head attention runs h parallel attention functions with dₖ = dmodel/h each:
+        </p>
+
+        <div class="math-block">
+          MultiHead(Q, K, V) = Concat(head₁, …, headₕ) · W^O
+        </div>
+
+        <p>
+          Different heads can learn different types of relationships simultaneously — syntactic dependencies in one head, semantic similarity in another, coreference in a third. The paper uses h=8 heads.
+        </p>
+
+        <h2>Positional Encoding</h2>
+
+        <p>
+          Self-attention has no notion of position — swapping two tokens gives the same output. To fix this, a positional encoding PE(pos, i) is added to each embedding before the first layer:
+        </p>
+
+        <pre><code>PE(pos, 2i)   = sin(pos / 10000^(2i/dmodel))
+PE(pos, 2i+1) = cos(pos / 10000^(2i/dmodel))</code></pre>
+
+        <p>
+          Why sinusoids? They let the model generalize to sequence lengths not seen during training, because relative positions can be expressed as linear functions of the encoding at any fixed offset.
+        </p>
+
+        <h2>The Full Architecture</h2>
+
+        <p>
+          The Transformer is an encoder-decoder stack:
+        </p>
+
+        <ul>
+          <li>Encoder: N=6 identical layers, each with multi-head self-attention + FFN, with residual connections and layer norm.</li>
+          <li>Decoder: N=6 layers with masked self-attention (causal), cross-attention to encoder output, and FFN.</li>
+          <li>The FFN in each layer is a simple 2-layer MLP: FFN(x) = max(0, xW₁ + b₁)W₂ + b₂, with inner dimension 2048.</li>
+        </ul>
+
+        <h2>Key Takeaways</h2>
+
+        <ul>
+          <li>Attention solves the long-range dependency problem elegantly.</li>
+          <li>Multi-head lets the model attend to multiple subspaces simultaneously.</li>
+          <li>Residual connections + layer norm are critical for training deep stacks.</li>
+          <li>Positional encodings inject order information without breaking the parallel computation.</li>
+        </ul>
+
+        <h2>My Questions / Open Points</h2>
+
+        <ul>
+          <li>Why layer norm instead of batch norm? (Hint: sequence lengths vary; batch norm over the sequence dimension doesn't make sense.)</li>
+          <li>What do different attention heads actually learn? (See: <a href="https://arxiv.org/abs/1905.09418" target="_blank">Clark et al., 2019</a>)</li>
+          <li>The O(n²) bottleneck — how do sparse/linear attention variants address it?</li>
+        </ul>
+
+      </div>
+
+      <div class="post-footer">
+        <a href="../index.html" class="back-link">← Back to Blog</a>
+        <span style="font-size:0.85rem; color: var(--color-text-muted);">Tags: LLM · Paper Notes</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2024 Jiaxiang Tang · <a href="../../index.html">Home</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
