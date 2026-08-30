@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Progress · Jiaxiang Tang</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .pg-page { padding-top: calc(var(--nav-height) + 48px); padding-bottom: 96px; }
+  .pg-head { margin-bottom: 40px; }
+  .pg-kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--color-primary); margin-bottom: 8px; }
+  .pg-head h1 { font-size: 32px; line-height: 1.25; }
+  .pg-sub { color: var(--color-text-muted); font-size: 15px; margin-top: 8px; }
+
+  .pg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .pg-card { background: var(--color-bg-alt); border: 1px solid var(--color-border);
+    border-radius: var(--radius); padding: 20px 22px; }
+  .pg-card .k { font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--color-text-muted); font-family: var(--font-mono); }
+  .pg-card .v { font-size: 30px; font-weight: 700; line-height: 1.2; margin-top: 6px; }
+  .pg-card .n { font-size: 13px; color: var(--color-text-muted); }
+
+  .pg-section { margin-top: 56px; }
+  .pg-section h2 { font-size: 20px; margin-bottom: 6px; }
+  .pg-section .hint { font-size: 13px; color: var(--color-text-muted); margin-bottom: 20px; }
+
+  /* overall ring */
+  .pg-hero { display: grid; grid-template-columns: 168px 1fr; gap: 28px; align-items: center;
+    background: var(--color-bg-alt); border: 1px solid var(--color-border);
+    border-radius: var(--radius); padding: 28px; }
+  .pg-ring { position: relative; width: 168px; height: 168px; }
+  .pg-ring svg { transform: rotate(-90deg); }
+  .pg-ring .lbl { position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; }
+  .pg-ring .lbl b { font-size: 30px; }
+  .pg-ring .lbl span { font-size: 12px; color: var(--color-text-muted); font-family: var(--font-mono); }
+
+  .pg-bars { display: flex; flex-direction: column; gap: 14px; }
+  .pg-bar-row { display: grid; grid-template-columns: 132px 1fr 68px; gap: 12px; align-items: center; }
+  .pg-bar-row .name { font-size: 14px; font-weight: 500; }
+  .pg-bar-row .num { font-family: var(--font-mono); font-size: 13px;
+    color: var(--color-text-muted); text-align: right; }
+  .pg-track { height: 8px; border-radius: 999px; background: var(--color-border); overflow: hidden; }
+  .pg-fill { height: 100%; border-radius: 999px; background: var(--color-primary);
+    transition: width .6s ease; }
+
+  /* week strip */
+  .pg-weeks { display: grid; grid-template-columns: repeat(auto-fit, minmax(58px, 1fr)); gap: 8px; }
+  .pg-week { border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+    padding: 10px 6px; text-align: center; background: var(--color-bg); }
+  .pg-week.past { background: var(--color-bg-alt); }
+  .pg-week.now { border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(37,99,235,.12); }
+  .pg-week .w { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+  .pg-week .d { font-size: 10px; color: var(--color-text-muted); margin-top: 2px; }
+  .pg-week .dot { width: 7px; height: 7px; border-radius: 999px; margin: 7px auto 0;
+    background: var(--color-border); }
+  .pg-week.past .dot { background: var(--color-text-muted); }
+  .pg-week.now .dot { background: var(--color-primary); }
+
+  /* day cells */
+  .pg-days { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 6px; }
+  .pg-day { aspect-ratio: 1; border-radius: var(--radius-sm); border: 1px solid var(--color-border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); }
+  .pg-day b { font-size: 13px; color: var(--color-text); font-weight: 600; }
+  .pg-day.rest { background: repeating-linear-gradient(45deg,
+      var(--color-bg-alt), var(--color-bg-alt) 4px, var(--color-bg) 4px, var(--color-bg) 8px); }
+  .pg-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px;
+    color: var(--color-text-muted); margin-top: 12px; font-family: var(--font-mono); }
+  .pg-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px;
+    margin-right: 6px; vertical-align: -1px; border: 1px solid var(--color-border); }
+
+  /* tiers */
+  .pg-tier { display: grid; grid-template-columns: 1fr 2fr auto; gap: 14px; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid var(--color-border); }
+  .pg-tier:last-child { border-bottom: none; }
+  .pg-tier .t { font-size: 14px; font-weight: 500; }
+  .pg-stack { display: flex; height: 10px; border-radius: 999px; overflow: hidden;
+    background: var(--color-border); }
+  .pg-stack span { display: block; height: 100%; }
+  .pg-tier .c { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted);
+    white-space: nowrap; }
+  .pg-foot { margin-top: 48px; font-size: 12px; color: var(--color-text-muted);
+    font-family: var(--font-mono); }
+  @media (max-width: 640px) {
+    .pg-hero { grid-template-columns: 1fr; justify-items: center; }
+    .pg-bars { width: 100%; }
+    .pg-bar-row { grid-template-columns: 96px 1fr 60px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Jiaxiang Tang</a>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#education">Education</a>
+      <a href="blog/index.html">Blog</a>
+      <a href="interview-prep.html">Interview Prep</a>
+      <a href="progress.html" style="color: var(--color-primary);">Progress</a>
+      <a href="cv/jiaxiang-resume.pdf" target="_blank" class="btn-cv">CV</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pg-page">
+  <div class="container">
+
+    <header class="pg-head">
+      <p class="pg-kicker">MLLM / LLM infra 面试准备</p>
+      <h1>准备进度</h1>
+      <p class="pg-sub" id="pgSub"></p>
+    </header>
+
+    <section class="pg-hero">
+      <div class="pg-ring">
+        <svg width="168" height="168" viewBox="0 0 168 168">
+          <circle cx="84" cy="84" r="72" fill="none" stroke="var(--color-border)" stroke-width="14"/>
+          <circle id="ringFill" cx="84" cy="84" r="72" fill="none" stroke="var(--color-primary)"
+                  stroke-width="14" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="452.4"/>
+        </svg>
+        <div class="lbl"><b id="ringPct">0%</b><span id="ringNum">0 / 0</span></div>
+      </div>
+      <div class="pg-bars" id="trackBars"></div>
+    </section>
+
+    <section class="pg-section">
+      <div class="pg-grid" id="statCards"></div>
+    </section>
+
+    <section class="pg-section">
+      <h2>14 周时间线</h2>
+      <p class="hint">当前处在计划的哪一周</p>
+      <div class="pg-weeks" id="weekStrip"></div>
+    </section>
+
+    <section class="pg-section">
+      <h2>逐日完成度</h2>
+      <p class="hint">每格一天，显示当天勾选比例</p>
+      <h3 style="font-size:14px;margin:0 0 10px;color:var(--color-text-muted)">Week 0 · 基础补习</h3>
+      <div class="pg-days" id="days0"></div>
+      <h3 style="font-size:14px;margin:24px 0 10px;color:var(--color-text-muted)">Week 1</h3>
+      <div class="pg-days" id="days1"></div>
+      <div class="pg-legend">
+        <span><i style="background:var(--color-bg)"></i>未开始</span>
+        <span><i style="background:rgba(37,99,235,.45)"></i>进行中</span>
+        <span><i style="background:var(--color-primary)"></i>完成</span>
+        <span><i style="background:var(--color-bg-alt)"></i>休息日</span>
+      </div>
+    </section>
+
+    <section class="pg-section">
+      <h2>基础自查档位</h2>
+      <p class="hint">✅ 能讲清并能写 · 🟡 讲不利索 · ❌ 空的</p>
+      <div id="tierList"></div>
+    </section>
+
+    <p class="pg-foot" id="pgFoot"></p>
+  </div>
+</main>
+
+<script src="progress-data.js"></script>
+<script>
+(function () {
+  const P = PROGRESS;
+  const TRACK_NAMES = {
+    "week-0": "Week 0 基础", "week-1": "Week 1", "audit": "自查与决策",
+    "master": "主计划 14 周", "mha": "MHA 恢复",
+  };
+  const pct = (d, t) => t ? Math.round(d / t * 100) : 0;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const day = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+
+  // ── overall ring ──
+  const total = P.tracks.reduce((a, t) => a + t.total, 0);
+  const done  = P.tracks.reduce((a, t) => a + t.done, 0);
+  const p = pct(done, total);
+  document.getElementById("ringPct").textContent = p + "%";
+  document.getElementById("ringNum").textContent = done + " / " + total;
+  const C = 2 * Math.PI * 72;
+  requestAnimationFrame(() => {
+    const r = document.getElementById("ringFill");
+    r.style.transition = "stroke-dashoffset 1s ease";
+    r.setAttribute("stroke-dashoffset", C * (1 - p / 100));
+  });
+
+  // ── per-track bars ──
+  document.getElementById("trackBars").innerHTML = P.tracks.map(t => `
+    <div class="pg-bar-row">
+      <span class="name">${TRACK_NAMES[t.key] || t.key}</span>
+      <span class="pg-track"><span class="pg-fill" style="width:${pct(t.done, t.total)}%"></span></span>
+      <span class="num">${t.done}/${t.total}</span>
+    </div>`).join("");
+
+  // ── stat cards ──
+  const start = day(P.planStart), end = day(P.planEnd);
+  const DAYMS = 86400000;
+  const elapsed = Math.floor((today - start) / DAYMS) + 1;
+  const span = Math.round((end - start) / DAYMS) + 1;
+  const left = Math.max(0, Math.ceil((end - today) / DAYMS));
+  const curWeek = P.weeks.findIndex(w => today >= day(w.start) && today <= day(w.end));
+  const cards = [
+    { k: "当前周", v: curWeek >= 0 ? P.weeks[curWeek].label : (today < start ? "未开始" : "已结束"),
+      n: curWeek >= 0 ? `第 ${curWeek + 1} / ${P.weeks.length} 周` : P.planStart + " 开始" },
+    { k: "已过天数", v: Math.max(0, Math.min(elapsed, span)), n: `共 ${span} 天` },
+    { k: "剩余天数", v: left, n: "至 " + P.planEnd },
+    { k: "时间进度", v: Math.max(0, Math.min(100, Math.round(elapsed / span * 100))) + "%",
+      n: "任务进度 " + p + "%" },
+  ];
+  document.getElementById("statCards").innerHTML = cards.map(c =>
+    `<div class="pg-card"><div class="k">${c.k}</div><div class="v">${c.v}</div><div class="n">${c.n}</div></div>`
+  ).join("");
+
+  document.getElementById("pgSub").textContent =
+    `${P.planStart} → ${P.planEnd} · 22h/周 · 共 ${P.weeks.length} 周`;
+
+  // ── week strip ──
+  document.getElementById("weekStrip").innerHTML = P.weeks.map((w, i) => {
+    const cls = i === curWeek ? "now" : (today > day(w.end) ? "past" : "");
+    const md = w.start.slice(5).replace("-", "/");
+    return `<div class="pg-week ${cls}" title="${w.start} → ${w.end}">
+      <div class="w">${w.label}</div><div class="d">${md}</div><div class="dot"></div></div>`;
+  }).join("");
+
+  // ── day cells ──
+  function renderDays(el, days) {
+    document.getElementById(el).innerHTML = days.map(d => {
+      const q = pct(d.done, d.total);
+      if (!d.total) return `<div class="pg-day rest" title="${d.date} 休息"><b>${d.day}</b>休息</div>`;
+      const bg = q === 0 ? "var(--color-bg)"
+        : q === 100 ? "var(--color-primary)" : `rgba(37,99,235,${0.15 + q / 100 * 0.5})`;
+      const fg = q === 100 ? "#fff" : "var(--color-text)";
+      return `<div class="pg-day" style="background:${bg}" title="${d.date} · ${d.done}/${d.total}">
+        <b style="color:${fg}">${d.day}</b><span style="color:${q === 100 ? '#fff' : ''}">${q}%</span></div>`;
+    }).join("");
+  }
+  renderDays("days0", P.days.week0);
+  renderDays("days1", P.days.week1);
+
+  // ── tiers ──
+  document.getElementById("tierList").innerHTML = P.tiers.map(t => {
+    const n = t.green + t.yellow + t.red || 1;
+    const w = x => (x / n * 100).toFixed(1) + "%";
+    return `<div class="pg-tier">
+      <span class="t">${t.name.split("·")[0].trim()}<span style="color:var(--color-text-muted);font-weight:400">
+        ·${t.name.split("·").slice(1).join("·")}</span></span>
+      <span class="pg-stack">
+        <span style="width:${w(t.green)};background:#16a34a"></span>
+        <span style="width:${w(t.yellow)};background:#eab308"></span>
+        <span style="width:${w(t.red)};background:#ef4444"></span>
+      </span>
+      <span class="c">✅${t.green} 🟡${t.yellow} ❌${t.red}</span>
+    </div>`;
+  }).join("");
+
+  document.getElementById("pgFoot").textContent = "数据生成于 " + P.generated + " · 由 tools/build_progress.py 从计划笔记解析";
+})();
+</script>
+</body>
+</html>
