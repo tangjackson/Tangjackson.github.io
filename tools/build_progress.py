@@ -20,8 +20,23 @@ def count_boxes(lines):
             done += 1 if m.group(1).lower() == "x" else 0
     return total, done
 
+def resolve(path):
+    """按相对路径找文件；找不到就按文件名在 blog/posts 下递归找（笔记常被改名/移动）。"""
+    direct = os.path.join(POSTS, path)
+    if os.path.exists(direct):
+        return direct
+    target = os.path.basename(path)
+    for root, _, names in os.walk(POSTS):
+        if target in names:
+            return os.path.join(root, target)
+    return None
+
 def read(path):
-    with open(os.path.join(POSTS, path), encoding="utf-8") as f:
+    real = resolve(path)
+    if real is None:
+        print("skip (not found):", path)
+        return []
+    with open(real, encoding="utf-8") as f:
         return f.read().split("\n")
 
 # ── Week 0 / Week 1 的逐日进度 ───────────────────────────────
@@ -97,7 +112,8 @@ files = {
 tracks = []
 for key, path in files.items():
     total, done = count_boxes(read(path))
-    tracks.append({"key": key, "total": total, "done": done})
+    tracks.append({"key": key, "total": total, "done": done,
+                   "missing": resolve(path) is None})
 
 data = {
     "generated": datetime.date.today().isoformat(),
